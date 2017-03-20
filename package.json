@@ -4,9 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-build": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^7.0.8",
+    "elm-hot-loader": "^0.5.4",
+    "elm-webpack-loader": "^4.2.0",
+    "ts-loader": "^2.0.2",
+    "tslint": "^4.5.1",
+    "tslint-loader": "^3.4.3",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2"
+  }
 }

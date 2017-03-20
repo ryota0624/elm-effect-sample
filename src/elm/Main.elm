@@ -27,7 +27,7 @@ main : Program Never {} Msg
 main =
     program
         { init = ( {}, Cmd.none )
-        , view = (\m -> Html.text "hello")
+        , view = (\m -> Html.text "hello, elm!")
         , update = update
         , subscriptions = subscriptions
         }
