@@ -1,26 +1,9 @@
 module Main exposing (..)
 
 import Html exposing (..)
-
-
-type alias Model =
-    {}
-
-
-type Msg
-    = None
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        None ->
-            ( model, Cmd.none )
+import Msg exposing (Msg)
+import Update exposing (update)
+import Subscriptions exposing (subscriptions)
 
 
 main : Program Never {} Msg
