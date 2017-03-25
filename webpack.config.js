@@ -55,7 +55,10 @@ module.exports = {
     compress: true,
     port: 9000,
     proxy: {
-      "/schedule": "http://localhost:8080/schedule"
+       "/schedule": {
+    target: "http://localhost:8080/schedule",
+    pathRewrite: {"^/schedule" : ""}
+      }
     }
   }
 }

@@ -1,16 +1,23 @@
 module Main exposing (..)
 
-import Html exposing (..)
-import Msg exposing (Msg)
-import Update exposing (update)
+import Msg exposing (Msg(OnLocationChange))
+import Update exposing (update, init)
 import Subscriptions exposing (subscriptions)
+import View exposing (view)
+import Model
+import Navigation
 
 
-main : Program Never {} Msg
+start : Update.Flag -> a -> ( Model.Model, Cmd Msg )
+start flag location =
+    init flag
+
+
+main : Program Update.Flag Model.Model Msg
 main =
-    program
-        { init = ( {}, Cmd.none )
-        , view = (\m -> Html.text "hello, elm!")
+    Navigation.programWithFlags OnLocationChange
+        { init = start
+        , view = view
         , update = update
         , subscriptions = subscriptions
         }

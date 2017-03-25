@@ -3,10 +3,11 @@ module Types.Schedule exposing (..)
 import Json.Decode as Decode
 import Monocle.Optional exposing (Optional)
 import Monocle.Lens exposing (Lens)
+import Date exposing (Date)
 
 
 type alias Schedule =
-    { date : String
+    { date : Date
     , movies : List MovieValueObject
     }
 
@@ -53,10 +54,26 @@ type alias MovieValueObject =
     }
 
 
+decodeDateFromString : Decode.Decoder Date
+decodeDateFromString =
+    Decode.string
+        |> Decode.andThen
+            (Date.fromString
+                >> (\res ->
+                        case res of
+                            Ok value ->
+                                Decode.succeed value
+
+                            Err reason ->
+                                Decode.fail reason
+                   )
+            )
+
+
 decodeSchedule : Decode.Decoder Schedule
 decodeSchedule =
     Decode.map2 Schedule
-        (Decode.field "date" Decode.string)
+        (Decode.field "date" decodeDateFromString)
         (Decode.field "movies" (Decode.list decodeModelDTO))
 
 

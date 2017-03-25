@@ -1,8 +1,7 @@
-module Types.Movie exposing (Movie, ID, updateBase, decodeMovie, titleOfMovie, storyOfMovie, baseOfMovie, reviewOfMovie)
+module Types.Movie exposing (Movie, ID, updateBase, decodeMovie, titleOfMovie, storyOfMovie, baseOfMovie)
 
-import Model.Review exposing (Review)
 import Json.Decode as Decode
-import Model.Schedule exposing (MovieValueObject)
+import Types.Schedule exposing (MovieValueObject)
 import Monocle.Optional exposing (Optional)
 import Monocle.Lens exposing (Lens)
 
@@ -29,7 +28,6 @@ type alias Movie =
     , story : Story
     , pageUrl : PageUrl
     , base : Maybe MovieValueObject
-    , review : Maybe Review
     }
 
 
@@ -46,7 +44,7 @@ decodeMovie =
         (Decode.field "story" Decode.string)
         (Decode.field "page_url" Decode.string)
     )
-        |> Decode.map (\fn -> fn Nothing Nothing)
+        |> Decode.map (\fn -> fn Nothing)
 
 
 titleOfMovie : Lens Movie Title
@@ -73,18 +71,6 @@ storyOfMovie =
             { movie | story = story }
     in
         Lens get set
-
-
-reviewOfMovie : Optional Movie Review
-reviewOfMovie =
-    let
-        getOption movie =
-            movie.review
-
-        set review movie =
-            { movie | review = Just review }
-    in
-        Optional getOption set
 
 
 baseOfMovie : Optional Movie MovieValueObject
